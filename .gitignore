@@ -1,0 +1,11 @@
+.env
+.coverage
+.mypy_cache
+.ruff_cache
+.tox
+
+__pycache__
+*.pyc
+*.cpython-36
+
+dist/
