@@ -19,6 +19,10 @@ if TYPE_CHECKING:  # pragma: no cover
 
     from click.testing import CliRunner
 
+# Exit code constants
+EXIT_SUCCESS = 0
+EXIT_MISUSE = 2
+
 
 def test_cli_file_single(tmp_path: Path, cli_runner: CliRunner) -> None:
     """
@@ -30,7 +34,7 @@ def test_cli_file_single(tmp_path: Path, cli_runner: CliRunner) -> None:
     """
     file_path = create_temp_file(tmp_path, "test.py")
     result = cli_runner.invoke(cli, [file_path])
-    assert result.exit_code == 0
+    assert result.exit_code == EXIT_SUCCESS
     assert result.output == get_file_messages(file_path)
 
 
@@ -45,7 +49,7 @@ def test_cli_file_multiple(tmp_path: Path, cli_runner: CliRunner) -> None:
     file_path_0 = create_temp_file(tmp_path, "test0.py")
     file_path_1 = create_temp_file(tmp_path, "test1.py")
     result = cli_runner.invoke(cli, [file_path_0, file_path_1])
-    assert result.exit_code == 0
+    assert result.exit_code == EXIT_SUCCESS
     assert result.output == (
         get_file_messages(file_path_0) + get_file_messages(file_path_1)
     )
@@ -61,7 +65,7 @@ def test_cli_single_directory(tmp_path: Path, cli_runner: CliRunner) -> None:
     """
     file_path = create_temp_file(tmp_path, "test.py")
     result = cli_runner.invoke(cli, [str(tmp_path.resolve())])
-    assert result.exit_code == 0
+    assert result.exit_code == EXIT_SUCCESS
     assert result.output == get_file_messages(file_path)
 
 
@@ -76,7 +80,7 @@ def test_cli_multiple_directory(tmp_path: Path, cli_runner: CliRunner) -> None:
     file_path_0 = create_temp_file(tmp_path, "test0.py")
     file_path_1 = create_temp_file(tmp_path, "test1.py")
     result = cli_runner.invoke(cli, [str(tmp_path.resolve())])
-    assert result.exit_code == 0
+    assert result.exit_code == EXIT_SUCCESS
     assert result.output == (
         get_file_messages(file_path_0) + get_file_messages(file_path_1)
     )
@@ -90,5 +94,5 @@ def test_cli_none(cli_runner: CliRunner) -> None:
         cli_runner (CliRunner): click runner
     """
     result = cli_runner.invoke(cli)
-    assert result.exit_code == 0
-    assert result.output == ""
+    assert result.exit_code == EXIT_MISUSE
+    assert "Error: No targets" in result.output

@@ -1,5 +1,5 @@
 """
-File:        cli
+File:        ruff_quickfix/cli
 Author:      Neal Joslin
 Date:        2024-08-17
 Email:       neal@joslin.io
@@ -10,16 +10,15 @@ from __future__ import annotations
 
 import click
 
-from .main import lint
+from .lint import lint
 
 
 @click.command()
 @click.argument("targets", nargs=-1)
 def cli(targets: list[str]) -> None:
     """Ruff wrapper for (neo)vim's quickfix"""
+    if not len(targets):
+        msg = "No targets"
+        raise click.UsageError(msg)
     for path in targets:
         lint(path)
-
-
-if __name__ == "__main__":  # pragma: no cover
-    cli(obj={})

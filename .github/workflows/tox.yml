@@ -38,3 +38,7 @@ jobs:
         run: tox -vv --notest
       - name: Run test suite
         run: tox --skip-pkg-install
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          GITHUB_SHA: $GITHUB_SHA
+

@@ -8,4 +8,11 @@ __pycache__
 *.pyc
 *.cpython-36
 
+# poetry build
 dist/
+# nix-build
+result
+
+# tox / pipeline outputs
+coverage.xml
+codacy-coverage-reporter

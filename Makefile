@@ -1,5 +1,11 @@
-all: 
-	poetry run python -m src.ruff_quickfix
+run: 
+	poetry run ruff-quickfix
+
+mrun: 
+	python -m src.ruff-quickfix
+
+build:
+	poetry build
 
 test:
 	poetry run pytest

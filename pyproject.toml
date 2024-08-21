@@ -1,20 +1,26 @@
 [tool.poetry]
 name = "ruff-quickfix"
-version = "0.1.0"
+version = "0.1.1"
 description = "Wrapper for the `ruff` command for (neo)vim's quickfix"
 authors = ["Neal Joslin <neal@joslin.io>"]
 readme = "README.md"
 license = "LICENSE"
-keywords = ["ruff", "cli", "vim", "neovim", "nvim", "quickfix"]
 repository = "https://github.com/Nealium/ruff-quickfix"
+keywords = ["ruff", "cli", "vim", "neovim", "nvim", "quickfix"]
+packages = [
+    { include = "ruff_quickfix", from = "src" },
+]
 
 [tool.poetry.scripts]
-ruff-quickfix = "ruff_quickfix.cli:cli"
+ruff-quickfix = "ruff_quickfix:cli"
 
 [tool.poetry.dependencies]
 python = "^3.8"
 click = "^8.1.7"
-ruff = "^0.6.1"
+ruff = { version = "^0.6.1", optional = true }
+
+[tool.poetry.extras]
+ruff = ["ruff"]
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = { version = "^3.8.0", python = "^3.9" }

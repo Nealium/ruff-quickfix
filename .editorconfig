@@ -8,7 +8,7 @@ indent_size = 4
 indent_style = space
 insert_final_newline = true
 
-[{*.json,*.yml,*.yaml}]
+[{*.md,*.yml,*.yaml,*.nix}]
 indent_size = 2
 
 [{Makefile,*.mk}]

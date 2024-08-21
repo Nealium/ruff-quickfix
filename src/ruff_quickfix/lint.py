@@ -1,9 +1,9 @@
 """
-File:        ruff_quickfix/main.py
+File:        ruff_quickfix/lint.py
 Author:      Neal Joslin
-Date:        2024-08-17
+Date:        2024-08-21
 Email:       neal@joslin.io
-Description: Main functionality
+Description: Linting and formatting
 """
 
 import re

@@ -3,14 +3,13 @@
 
 # ruff-quickfix
 
-[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Version](https://img.shields.io/pypi/v/ruff-quickfix?style=for-the-badge)](https://pypi.org/project/ruff-quickfix/)
+![Python Versions](https://img.shields.io/pypi/pyversions/ruff-quickfix?style=for-the-badge&logo=python&logoColor=white)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json&style=for-the-badge)](https://python-poetry.org/)
 
-![Python 3.8](http://img.shields.io/badge/python-3.8-3776AB.svg)
-![Python 3.9](http://img.shields.io/badge/python-3.9-3776AB.svg)
-![Python 3.10](http://img.shields.io/badge/python-3.10-3776AB.svg)
-![Python 3.11](http://img.shields.io/badge/python-3.11-3776AB.svg)
-![Python 3.12](http://img.shields.io/badge/python-3.12-3776AB.svg)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Nealium/ruff-quickfix/tox.yml?style=for-the-badge)
+![Codacy grade](https://img.shields.io/codacy/grade/604aba9fddc14c739a9148cd71efe5c4?style=for-the-badge)
+![Codacy coverage](https://img.shields.io/codacy/coverage/604aba9fddc14c739a9148cd71efe5c4?style=for-the-badge)
 
 </div>
 
@@ -21,6 +20,68 @@ that allows it to be easily used with (neo)vim's quickfix.
 using an LSP. Also this is an excuse to learn publishing.
 
 ![Screenshot](screenshot.png)
+
+## Install
+
+### [pipx](https://github.com/pypa/pipx) *(recommended)*
+
+**Note:** Normal pip works as well, though you should give pipx a try!
+
+* [PyPi](https://pypi.org/project/ruff-quickfix/): `pipx install ruff-quickfix`
+* [GitHub](https://github.com/Nealium/ruff-quickfix): `pipx install git+https://github.com/Nealium/ruff-quickfix`
+* If you don't already have ruff you include it as an "extra"
+  * `pipx install ruff-quickfix[ruff]`
+  * if zsh: `pipx install ruff-quickfix\[ruff\]`
+
+### Source
+
+Clone project: `git clone https://github.com/Nealium/ruff-quickfix.git`
+
+* Pipx: `pipx install .`
+* Pip: `pip install .`
+* Poetry: `poetry install`
+* From Wheel:
+  * `poetry install`
+  * `poetry build`
+  * `pipx install dist/*.whl`
+
+### [Home Manager](https://github.com/nix-community/home-manager) *(nix)*
+
+**Note!** This **will** crash on the first run as the sha256 isn't *real*. Once
+it crashes the error message will provide the *actual* sha256 that is required.
+
+1. Insert items into `home.nix`
+2. Replace `rev` with the most recent commit's hash
+3. Run
+4. Replace placeholder `sha256` with actual hash from error message
+5. Re-run
+6. Validate: `ruff-quickfix --help`
+
+```nix
+{ config, pkgs, ... }:
+let
+  # other stuff..
+
+  ruff-quickfix = import
+    (pkgs.fetchFromGitHub
+      {
+        owner = "Nealium";
+        repo = "ruff-quickfix";
+
+        # "commit hash" (can be found on GitHub)
+        rev = "{commit-hash}";
+
+        # placeholder hash (replace after 1st run)
+        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      }
+    ) { inherit pkgs; };
+in
+  home.packages = [
+    # other packages..
+
+    ruff-quickfix
+  ]
+```
 
 ## Config
 
@@ -102,4 +163,5 @@ command Pruff call s:ProjectRuffMake()
 ## Extras
 
 Inside the extras directory you will find files that allow you to easily toggle
-between pylint and ruff, as well as a standalone file of ruff-quickfix.
+between pylint and ruff. It also contains a standalone file of ruff-quickfix
+that doesn't require on [click](https://click.palletsprojects.com)
