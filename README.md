@@ -3,6 +3,7 @@
 
 # ruff-quickfix
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d800af48a3944d008b0a0f56d897732c)](https://app.codacy.com/gh/Nealium/ruff-quickfix?utm_source=github.com&utm_medium=referral&utm_content=Nealium/ruff-quickfix&utm_campaign=Badge_Grade)
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json&style=for-the-badge)](https://python-poetry.org/)
 
