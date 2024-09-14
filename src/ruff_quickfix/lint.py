@@ -6,15 +6,11 @@ Email:       neal@joslin.io
 Description: Linting and formatting
 """
 
-import re
+import json
+import sys
 from subprocess import run
 
 import click
-
-RUFF_REGEX = (
-    r"(?P<path>.*):(?P<line>\d+):(?P<col>\d+): "
-    r"(?P<code>\S+) (?P<fixable>\[\*\] )*(?P<msg>.*)"
-)
 
 
 def lint(path: str) -> None:
@@ -25,17 +21,31 @@ def lint(path: str) -> None:
     Args:
         path (str): path to lint
     """
-    cmd = f"ruff check {path} --output-format concise"
-    data = run(cmd, capture_output=True, shell=True, check=False)  # noqa: S602
-    output = data.stdout.splitlines()
+    cmd = f"RUFF_FORMAT=json RUFF_OUTPUT_FORMAT=json ruff check {path}"
+    res = run(cmd, capture_output=True, shell=True, check=False)  # noqa: S602
 
-    for line in output:
-        result = re.search(RUFF_REGEX, line.decode("utf-8"))
-        if result:
-            click.echo(
-                f"{result.group('path')}:"
-                f"{result.group('line')}:"
-                f"{result.group('col')}:"
-                "e:"
-                f"{result.group('msg')} [{result.group('code')}]"
-            )
+    try:
+        if res.stdout:
+            parsed = json.loads(res.stdout)
+            for e in parsed:
+                click.echo(
+                    f"{e['filename']}:"
+                    f"{e['location']['row']}:"
+                    f"{e['location']['column']}:"
+                    "e:"
+                    f"{e['message']} [{e['code']}]"
+                )
+    except json.JSONDecodeError:
+        click.echo(f"{path}:0:0:e:ruff-quickfix decode error")
+        for i in res.stdout.splitlines():
+            if i:
+                click.echo(f"ruff-quickfix:0:0:e:\u2001{i.decode('utf-8')}")
+        sys.exit(1)
+    finally:
+        if res.stderr:
+            click.echo(f"{path}:0:0:e:ruff message")
+            for i in res.stderr.splitlines():
+                if i:
+                    click.echo(f"ruff-quickfix:0:0:e:\u2001{i.decode('utf-8')}")
+            sys.exit(1)
+

@@ -11,6 +11,7 @@ mkShell {
     python312Packages.pytest
     python312Packages.pytest-click
     python312Packages.pytest-cov
+    python312Packages.pytest-mock
     python312Packages.tox
   ];
 }
