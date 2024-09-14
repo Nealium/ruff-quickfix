@@ -5,7 +5,8 @@ mkShell {
 
   buildInputs = [
     ruff
-    python312Packages.poetry-core
+    poetry
+    python312
     python312Packages.click 
     python312Packages.mypy
     python312Packages.pytest
@@ -13,5 +14,6 @@ mkShell {
     python312Packages.pytest-cov
     python312Packages.pytest-mock
     python312Packages.tox
+    pre-commit
   ];
 }

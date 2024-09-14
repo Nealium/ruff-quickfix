@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ruff-quickfix"
-version = "0.1.1"
+version = "0.2.0"
 description = "Wrapper for the `ruff` command for (neo)vim's quickfix"
 authors = ["Neal Joslin <neal@joslin.io>"]
 readme = "README.md"
