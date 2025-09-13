@@ -4,7 +4,7 @@ with pkgs;
 
 python312Packages.buildPythonPackage {
   pname = "ruff-quickfix";
-  version = "0.1.1";
+  version = "0.2.1";
   pyproject = true;
 
   src = ./.;

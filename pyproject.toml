@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ruff-quickfix"
-version = "0.2.0"
+version = "0.2.1"
 description = "Wrapper for the `ruff` command for (neo)vim's quickfix"
 authors = ["Neal Joslin <neal@joslin.io>"]
 readme = "README.md"
@@ -43,21 +43,20 @@ line-length = 80
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-    "ANN101",
-    "COM812",
-    "D203",
-    "D205",
-    "D212",
-    "D400",
-    "D406",
-    "D407",
-    "D413",
-    "D415",
-    "FIX002",
-    "ISC001",
-    "S101",
-    "TD003",
-    "UP037",
+    "COM812",  # missing trailing comma
+    "D203",  # missing blank line before class
+    "D205",  # missing blank line after summary
+    "D212",  # summary must be placed on first physical line
+    "D400",  # requires summary to end with a period
+    "D406",  # sections shouldn't have colons, etc.
+    "D407",  # dashed lines under sections
+    "D413",  # last section needs a new line prepended
+    "D415",  # requires summary to end with a period 
+    "FIX002",  # no `TODO` comments
+    "ISC001",  # single line string concatenation
+    "S101",  # no assers (yet used in pytest)
+    "TD003",  # require issue for all `TODO` comments
+    "UP037",  # no quoted type annotations with __future__
 ]
 
 [ruff.lint.flake8-quotes]

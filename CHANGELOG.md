@@ -1,8 +1,8 @@
 <!-- markdownlint-disable MD024 -->
 
-# Ruff-Quickfix ChangeLog
+# Changelog
 
-## 2024-08-18
+## 0.1.0 - 2024-08-18
 
 ### New
 
@@ -11,7 +11,7 @@
 * Test: pytest + tox
 * Example configs
 
-## 2024-08-21
+## 0.1.1 - 2024-08-21
 
 ### New
 
@@ -22,9 +22,9 @@
 ### Changes
 
 * Optional Dependency: ruff
-* Dynamic elements in README
+* Dynamic elements in readme
 
-## 2024-09-14
+## 0.2.0 - 2024-09-14
 
 ### New
 
@@ -37,3 +37,18 @@
 ### Fixes
 
 * Compatibility issues with older ruff versions #4
+
+## 0.2.1 - 2025-09-13
+
+### New
+
+* pre-commit typos
+
+### Changes
+
+* Click targets are now Path objects
+* Change `shell.nix` to use `devenv.nix`
+
+### Fixes
+
+* Removed coverage reporter in local tox tests
