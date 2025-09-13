@@ -88,11 +88,14 @@ def test_cli_multiple_directory(tmp_path: Path, cli_runner: CliRunner) -> None:
     )
 
 
-def test_cli_ruff_error(cli_runner: CliRunner, mocker: MockerFixture) -> None:
+def test_cli_ruff_error(
+    tmp_path: Path, cli_runner: CliRunner, mocker: MockerFixture
+) -> None:
     """
     Test a ruff error
 
     Args:
+        tmp_path (Path): test's temp dir
         cli_runner (CliRunner): click runner
         mocker (MockerFixture): mock module interface
     """
@@ -105,21 +108,24 @@ def test_cli_ruff_error(cli_runner: CliRunner, mocker: MockerFixture) -> None:
     mock_run = mocker.patch("ruff_quickfix.lint.run")
     mock_run.return_value = mock_stdout
 
-    result = cli_runner.invoke(cli, ["test"])
+    result = cli_runner.invoke(cli, [str(tmp_path.resolve())])
 
     assert result.exit_code == EXIT_ERROR
     msgs = [
-        "test:0:0:e:ruff message",
+        f"{tmp_path.resolve()}:0:0:e:ruff message",
         "ruff-quickfix:0:0:e:\u2001This is an error!",
     ]
     assert "\n".join(msgs) in result.output
 
 
-def test_cli_decode_error(cli_runner: CliRunner, mocker: MockerFixture) -> None:
+def test_cli_decode_error(
+    tmp_path: Path, cli_runner: CliRunner, mocker: MockerFixture
+) -> None:
     """
     Test a json decode error
 
     Args:
+        tmp_path (Path): test's temp dir
         cli_runner (CliRunner): click runner
         mocker (MockerFixture): mock module interface
     """
@@ -132,11 +138,11 @@ def test_cli_decode_error(cli_runner: CliRunner, mocker: MockerFixture) -> None:
     mock_run = mocker.patch("ruff_quickfix.lint.run")
     mock_run.return_value = mock_stdout
 
-    result = cli_runner.invoke(cli, ["test"])
+    result = cli_runner.invoke(cli, [str(tmp_path.resolve())])
 
     assert result.exit_code == EXIT_ERROR
     msgs = [
-        "test:0:0:e:ruff-quickfix decode error",
+        f"{tmp_path.resolve()}:0:0:e:ruff-quickfix decode error",
         "ruff-quickfix:0:0:e:\u2001This is a decode error!",
     ]
     assert "\n".join(msgs) in result.output

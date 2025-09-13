@@ -1,12 +1,13 @@
+__pycache__/
+Thumbs.db
+
 .env
 .coverage
+
+# tool caches
 .mypy_cache
 .ruff_cache
 .tox
-
-__pycache__
-*.pyc
-*.cpython-36
 
 # poetry build
 dist/
@@ -16,3 +17,11 @@ result
 # tox / pipeline outputs
 coverage.xml
 codacy-coverage-reporter
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+.envrc

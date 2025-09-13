@@ -8,14 +8,26 @@ Description: cli commands
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import click
 
 from .lint import lint
 
 
 @click.command()
-@click.argument("targets", nargs=-1)
-def cli(targets: list[str]) -> None:
+@click.version_option(package_name="ruff-quickfix")
+@click.argument(
+    "targets",
+    nargs=-1,
+    type=click.Path(
+        exists=True,
+        file_okay=True,
+        dir_okay=True,
+        path_type=Path,
+    ),
+)
+def cli(targets: list[Path]) -> None:
     """Ruff wrapper for (neo)vim's quickfix"""
     if not len(targets):
         msg = "No targets"
